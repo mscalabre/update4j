@@ -18,7 +18,7 @@ package org.update4j;
 import java.util.Locale;
 
 public enum OS {
-    WINDOWS("win"), MAC("mac"), LINUX("linux"), OTHER("other");
+    WINDOWS("win"), MAC("mac"), MAC_AARCH64("mac-aarch64"), LINUX("linux"), OTHER("other");
 
     public static final OS CURRENT;
 
