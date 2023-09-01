@@ -51,6 +51,8 @@ public class FileUtils {
 
     public static final Pattern OS_PATTERN = Pattern.compile(".+-(linux|win|mac)(?:-(.+))?\\.[^.]+$");
 
+    private static String USERLIB = null;
+
     private FileUtils() {
     }
 
@@ -233,6 +235,13 @@ public class FileUtils {
         }
     }
 
+    public static Path getUserLibPath(Path path) {
+        if(path.toString().contains("USERLIB") && FileUtils.getUSERLIB() != null) {
+            path = Paths.get(FileUtils.getUSERLIB(), path.toString().replaceAll("(.*USERLIB)+", ""));
+        }
+        return path;
+    }
+
     public static void secureMoveFile(Path source, Path target) throws IOException {
         // for windows we can't go wrong because the OS manages locking
         if (OS.CURRENT == OS.WINDOWS || Files.notExists(target)) {
@@ -283,4 +292,11 @@ public class FileUtils {
         }));
     }
 
+    public static void setUSERLIB(String USERLIB) {
+        FileUtils.USERLIB = USERLIB;
+    }
+
+    public static String getUSERLIB() {
+        return USERLIB;
+    }
 }

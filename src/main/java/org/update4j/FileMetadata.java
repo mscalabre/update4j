@@ -103,7 +103,7 @@ public class FileMetadata {
         if (os == null || os == OS.CURRENT) {
             Objects.requireNonNull(path, "path");
 
-            if (!path.isAbsolute()) {
+            if (!path.isAbsolute() && !path.toString().contains("USERLIB")) {
                 throw new IllegalArgumentException("Absolute path required: " + path);
             }
         }
@@ -181,14 +181,15 @@ public class FileMetadata {
      * @return The local path for this file.
      */
     public Path getPath() {
-        return path;
+        return FileUtils.getUserLibPath(path);
     }
 
     Path getNormalizedPath() {
         if (getPath() == null)
             return null;
-        if (normalizedPath == null)
-            normalizedPath = path.normalize();
+        if (normalizedPath == null){
+            normalizedPath = getPath().normalize();
+        }
 
         return normalizedPath;
     }

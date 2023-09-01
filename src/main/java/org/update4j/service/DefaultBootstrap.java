@@ -42,6 +42,7 @@ import org.update4j.SingleInstanceManager;
 import org.update4j.UpdateOptions;
 import org.update4j.inject.InjectSource;
 import org.update4j.util.ArgUtils;
+import org.update4j.util.FileUtils;
 
 public class DefaultBootstrap implements Delegate {
 
@@ -182,6 +183,9 @@ public class DefaultBootstrap implements Delegate {
             } else if ("archive".equals(arg)) {
                 ArgUtils.validateHasValue(e);
                 archivePath = e.getValue();
+            } else if ("userlib".equals(arg)) {
+                ArgUtils.validateHasValue(e);
+                FileUtils.setUSERLIB(e.getValue());
             } else if ("delegate".equals(arg)) {
                 throw new IllegalArgumentException("--delegate must be passed as first argument.");
             } else {
